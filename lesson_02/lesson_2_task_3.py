@@ -2,7 +2,10 @@ import math
 
 
 def square(side):
-    return math.ceil(side * side)
+    result = side * side
+    if result != int(result):
+        return math.ceil(result)
+    return int(result)
 
 
 print(square(4))
