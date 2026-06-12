@@ -1,39 +1,45 @@
 class StringUtils:
+    """
+    Класс с полезными утилитами для обработки и анализа строк
+    """
 
     def capitalize(self, string: str) -> str:
-        """Принимает строку, делает первую букву заглавной"""
+        """
+        Принимает на вход текст, делает первую букву заглавной
+        и возвращает этот же текст
+        Пример: `capitilize("skypro") -> "Skypro"`
+        """
         return string.capitalize()
 
     def trim(self, string: str) -> str:
-        """Принимает строку, удаляет пробелы в начале"""
-        return string.lstrip()
-
-    def to_list(self, string: str, delimeter: str = ",") -> list:
-        """Принимает строку, возвращает список слов"""
-        if string == "" or string is None:
-            return []
-        return string.split(delimeter)
+        """
+        Принимает на вход текст и удаляет пробелы в начале, если они есть
+        Пример: `trim("   skypro") -> "skypro"`
+        """
+        whitespace = " "
+        while string.startswith(whitespace):
+            string = string.removeprefix(whitespace)
+        return string
 
     def contains(self, string: str, symbol: str) -> bool:
-        """Возвращает True если строка содержит символ"""
-        return symbol in string
+        """
+        Возвращает True если строка содержит искомый символ и False если нет
+        Пример 1: `contains("SkyPro", "S") -> True`
+        Пример 2: `contains("SkyPro", "U") -> False`
+        """
+        res = False
+        try:
+            res = string.index(symbol) > -1
+        except ValueError:
+            pass
+        return res
 
     def delete_symbol(self, string: str, symbol: str) -> str:
-        """Удаляет символ из строки"""
-        return string.replace(symbol, "")
-
-    def starts_with(self, string: str, symbol: str) -> bool:
-        """Возвращает True если строка начинается с символа"""
-        return string.startswith(symbol)
-
-    def end_with(self, string: str, symbol: str) -> bool:
-        """Возвращает True если строка заканчивается символом"""
-        return string.endswith(symbol)
-
-    def is_empty(self, string: str) -> bool:
-        """Возвращает True если строка пустая или None"""
-        return string is None or string.strip() == ""
-
-    def list_to_string(self, lst: list, joiner: str = ", ") -> str:
-        """Преобразует список в строку через разделитель"""
-        return joiner.join([str(x) for x in lst])
+        """
+        Удаляет все подстроки из переданной строки
+        Пример 1: `delete_symbol("SkyPro", "k") -> "SyPro"`
+        Пример 2: `delete_symbol("SkyPro", "Pro") -> "Sky"`
+        """
+        if self.contains(string, symbol):
+            string = string.replace(symbol, "")
+        return string
